@@ -1,6 +1,17 @@
 const formatter = {
     dateTimeToEnglishFormat(dateTime) {
-        return dateTime ? dateTime.substring(0, 19).replace(/^(\d{1,4})-(\d{1,2})-(\d{1,2})T(\d{1,2}):(\d{1,2}):(\d{1,2})$/, "$3/$2/$1 $4:$5:$6") : "";
+        var timestamp = Date.parse(dateTime);
+        if (isNaN(timestamp))
+            throw Error(`${dateTime} is not a valid number to be formatted!`)
+
+        return new Date(timestamp).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        });
     },
 
     valueFromInput(input) {

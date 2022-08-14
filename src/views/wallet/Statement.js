@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Form, Row, Col } from 'react-bootstrap';
+import { Container, Form, Modal } from 'react-bootstrap';
+import { default as StatementTicket } from '../../components/Statement';
+
 import WalletInput from '../../components/WalletInput';
 import ButtonGroup from '../../components/ButtonGroup';
 
@@ -10,6 +12,8 @@ import walletservice from '../../services/walletservice';
 const Statement = () => {
     const [statement, setStatement] = useState(null);
     const [walletNumber, setWalletNumber] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
 
     const onChange = event => setWalletNumber(formatter.valueFromInput(event))
 
@@ -18,6 +22,7 @@ const Statement = () => {
             validate(walletNumber)
             const statement = await walletservice.getStatement(walletNumber);
             setStatement(statement);
+            setShowModal(true);
         } catch (exception) {
             console.log(exception.message ?? exception)
             window.alert(exception.message ?? "Error to show statement!")
@@ -44,31 +49,10 @@ const Statement = () => {
                 <WalletInput value={walletNumber} onChange={onChange} />
                 <ButtonGroup labelAction="Consult" onClickAction={getStatement} onClickClean={clean} toLink="/wallet" />
 
-                {statement &&
-                    <Form>
-                        <Row className="mt-2">
-                            <Col>Client</Col><Col>{`${statement?.wallet?.person?.name || ""} ${statement?.wallet?.person?.surname || ""}`}</Col>
-                        </Row>
-                        <Row>
-                            <Col>Wallet</Col><Col>{statement?.wallet?.number || ""}</Col>
-                        </Row>
-
-                        {statement?.transactions.map(transaction => (
-                            <Row className="mt-2">
-                                <Col>{transaction.number}</Col>
-                                <Col>{transaction.dateTime}</Col>
-                                <Col>{transaction.operation}</Col>
-                                <Col>{transaction.type}</Col>
-                                <Col>{transaction.value}</Col>
-                                <Col>{transaction.observation}</Col>
-                            </Row>
-                        ))}
-
-                        <Row>
-                            <Col>Balance</Col><Col>{statement?.balance}</Col>
-                        </Row>
-                    </Form>
-                }
+                <Modal fullscreen={true} show={showModal} onHide={() => setShowModal(false)}>
+                    <Modal.Header closeButton></Modal.Header>
+                    <Modal.Body><StatementTicket statement={statement} /></Modal.Body>
+                </Modal>
             </Form>
 
         </Container>
