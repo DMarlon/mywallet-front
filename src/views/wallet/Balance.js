@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Form, Row, Col } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import WalletInput from '../../components/WalletInput';
 import ButtonGroup from '../../components/ButtonGroup';
+import Statement from '../../components/Statement';
 
 import formatter from '../../utilitaries/formatter';
 import validator from '../../utilitaries/validator';
@@ -42,21 +43,7 @@ const Balance = () => {
             <Form>
                 <WalletInput value={walletNumber} onChange={onChange} />
                 <ButtonGroup labelAction="Consult" onClickAction={getBalance} onClickClean={clean} toLink="/wallet" />
-
-                {balance &&
-                    <Form>
-                        <Row className="mt-2">
-                            <Col>Client</Col>
-                            <Col>Wallet</Col>
-                            <Col>Balance</Col>
-                        </Row>
-                        <Row className="mt-2">
-                            <Col>{`${balance?.wallet?.person?.name || ""} ${balance?.wallet?.person?.surname || ""}`}</Col>
-                            <Col>{balance?.wallet?.number || ""}</Col>
-                            <Col>{balance?.balance || ""}</Col>
-                        </Row>
-                    </Form>
-                }
+                {balance && <Statement statement={balance} />}
             </Form>
 
         </Container>
