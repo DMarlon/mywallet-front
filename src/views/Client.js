@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Container, Form, InputGroup } from 'react-bootstrap';
+import { Container, Form, InputGroup } from 'react-bootstrap';
 import { PersonSquare } from 'react-bootstrap-icons';
 
 import validator from '../utilitaries/validator';
 import formatter from '../utilitaries/formatter';
 import personservice from '../services/personservice';
+import ButtonGroup from '../components/ButtonGroup';
 
 const Client = () => {
 
@@ -22,11 +22,14 @@ const Client = () => {
             window.alert(`Client ${person.name} ${person.surname} successfully registered!`);
             clean();
         } catch (exception) {
-            console.log(exception.message);
+            console.log(exception.message ?? exception);
+            window.alert(exception.message ?? "Error to create client!")
         }
     }
 
     const validate = (person) => {
+        if (validator.isNullOrEmpty(person))
+            throw new Error("Client information must be provided!");
         if (validator.isNullOrEmpty(person.name))
             throw new Error("Client name must be provided!");
         if (validator.isNullOrEmpty(person.surname))
@@ -57,13 +60,7 @@ const Client = () => {
                     </InputGroup>
                 </Form.Group>
 
-                <div className="d-grid gap-2 mt-2">
-                    <Button variant="primary" size="lg" className="text-white" onClick={save}>Save</Button>
-                    <Button variant="secondary" size="lg" onClick={clean}>Clean</Button>
-                    <Link to="/" className="col-12">
-                        <Button variant="secondary" size="lg" className="w-100">Back</Button>
-                    </Link>
-                </div>
+                <ButtonGroup labelAction="Save" onClickAction={save} onClickClean={clean} toLink="/" />
             </Form>
         </Container>
     )

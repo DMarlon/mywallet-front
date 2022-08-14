@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { Button, Container, Form } from 'react-bootstrap';
-import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import { Container, Form } from 'react-bootstrap';
+import AutoCompleteInput from '../../components/AutoCompleteInput';
+import ButtonGroup from '../../components/ButtonGroup';
 
 import validator from '../../utilitaries/validator';
 import personservice from '../../services/personservice';
@@ -17,7 +17,8 @@ const Create = () => {
             setIsLoading(true);
             setOptions(await personservice.autocomplete(term));
         } catch (exception) {
-            console.log(exception.message);
+            console.log(exception.message ?? exception);
+            window.alert(exception.message ?? "Error to search person!")
         } finally {
             setIsLoading(false);
         }
@@ -37,7 +38,8 @@ const Create = () => {
             window.alert(`Client ${created.person.name} ${created.person.surname} wallet ${created.number} successfully registered!`);
             clean();
         } catch (exception) {
-            console.log(exception.message);
+            console.log(exception.message ?? exception);
+            window.alert(exception.message ?? "Error to create wallet!")
         }
     };
 
@@ -54,29 +56,17 @@ const Create = () => {
         <Container fluid>
             <h1>Create</h1>
             <Form>
-                <Form.Group>
-                    <Form.Label>Client</Form.Label>
-                    <AsyncTypeahead
-                        id="async-example"
-                        isLoading={isLoading}
-                        labelKey={option => `${option.name} ${option.surname}`}
-                        minLength={2}
-                        onChange={selected}
-                        onSearch={term => autocomplete(term)}
-                        options={options}
-                        placeholder="Search client..."
-                        renderMenuItemChildren={(option) => (<span>{`${option.name}  ${option.surname}`}</span>)}
-                    />
-                </Form.Group>
-
-                <div className="d-grid gap-2 mt-2">
-                    <Button variant="primary" size="lg" className="text-white" onClick={save}>Create</Button>
-                    <Button variant="secondary" size="lg" onClick={clean}>Clean</Button>
-                    <Link to="/wallet" className="col-12">
-                        <Button variant="secondary" size="lg" className="w-100">Back</Button>
-                    </Link>
-
-                </div>
+                <AutoCompleteInput
+                    label={"Client"}
+                    isLoading={isLoading}
+                    labelKey={option => `${option.name} ${option.surname}`}
+                    onChange={selected}
+                    onSearch={term => autocomplete(term)}
+                    options={options}
+                    placeholder="Search client..."
+                    renderMenuItemChildren={(option) => (<span>{`${option.name}  ${option.surname}`}</span>)}
+                />
+                <ButtonGroup labelAction="Create" onClickAction={save} onClickClean={clean} toLink="/wallet" />
             </Form>
         </Container>
     )

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Container, Form, InputGroup } from 'react-bootstrap';
-import { CashCoin, Wallet2 } from 'react-bootstrap-icons';
+import { Container, Form } from 'react-bootstrap';
+import WalletInput from '../../components/WalletInput';
+import CurrencyInput from '../../components/CurrencyInput';
+import ButtonGroup from '../../components/ButtonGroup';
 
 import formatter from '../../utilitaries/formatter';
 import validator from '../../utilitaries/validator';
@@ -19,13 +20,18 @@ const Withdraw = () => {
             window.alert(`Withdraw ${register.value} in wallet ${register.wallet.number} successfully registered!`);
             clean();
         } catch (exception) {
-            console.log(exception.message);
+            console.log(exception.message ?? exception);
+            window.alert(exception.message ?? "Error making withdraw!")
         }
     };
 
     const validate = (withdraw) => {
+        if (validator.isNullOrEmpty(withdraw))
+            throw new Error("Withdraw informations must be provided!");
         if (validator.isNullOrEmpty(withdraw.walletNumber))
             throw new Error("Wallet must be provided!");
+        if (!validator.isUUIDValid(withdraw.walletNumber))
+            throw new Error("Wallet is not valid!");
         if (validator.isNullOrEmpty(withdraw.value))
             throw new Error("Value must be provided!");
     };
@@ -38,29 +44,9 @@ const Withdraw = () => {
         <Container fluid>
             <h1>Withdraw</h1>
             <Form>
-                <Form.Group>
-                    <Form.Label>Wallet</Form.Label>
-                    <InputGroup>
-                        <InputGroup.Text><Wallet2 /></InputGroup.Text>
-                        <Form.Control type="input" value={withdraw?.walletNumber || ""} onChange={onChange("walletNumber")} placeholder="Informe the wallet number" />
-                    </InputGroup>
-                </Form.Group>
-
-                <Form.Group className="mt-2">
-                    <Form.Label>Value</Form.Label>
-                    <InputGroup>
-                        <InputGroup.Text><CashCoin /></InputGroup.Text>
-                        <Form.Control type="input" value={withdraw?.value || ""} onChange={onChange("value")} placeholder="Informe the value to withdraw" />
-                    </InputGroup>
-                </Form.Group>
-
-                <div className="d-grid gap-2 mt-2">
-                    <Button variant="primary" size="lg" className="text-white" onClick={save}>Withdraw</Button>
-                    <Button variant="secondary" size="lg" onClick={clean}>Clean</Button>
-                    <Link to="/wallet" className="col-12">
-                        <Button variant="secondary" size="lg" className="w-100">Back</Button>
-                    </Link>
-                </div>
+                <WalletInput value={withdraw?.walletNumber} onChange={onChange("walletNumber")} />
+                <CurrencyInput value={withdraw?.value} onChange={onChange("value")} placeholder={"Informe the value to withdraw"} />
+                <ButtonGroup labelAction="Withdraw" onClickAction={save} onClickClean={clean} toLink="/wallet" />
             </Form>
         </Container>
     )

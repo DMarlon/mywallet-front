@@ -4,6 +4,7 @@ const pathapi = {
         autocomplete: (term) => `/person?term=${term}`
     },
     wallet: {
+        list: () => "/wallet",
         create: () => "/wallet",
         deposit: () => "/wallet/deposit",
         withdraw: () => "/wallet/withdraw",        

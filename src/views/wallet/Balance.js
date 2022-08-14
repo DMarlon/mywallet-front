@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { Wallet2 } from 'react-bootstrap-icons';
+import { Container, Form, Row, Col } from 'react-bootstrap';
+import WalletInput from '../../components/WalletInput';
+import ButtonGroup from '../../components/ButtonGroup';
 
-import walletservice from '../../services/walletservice';
 import formatter from '../../utilitaries/formatter';
+import validator from '../../utilitaries/validator';
+import walletservice from '../../services/walletservice';
 
 const Balance = () => {
     const [balance, setBalance] = useState(null);
@@ -14,12 +15,21 @@ const Balance = () => {
 
     const getBalance = async () => {
         try {
+            validate(walletNumber)
             const balance = await walletservice.getBalance(walletNumber);
             setBalance(balance);
         } catch (exception) {
-            console.log(exception)
+            console.log(exception.message ?? exception)
+            window.alert(exception.message ?? "Error to show the balance!")
         }
     }
+
+    const validate = (walletNumber) => {
+        if (validator.isNullOrEmpty(walletNumber))
+            throw new Error("Wallet number must be provided!");
+        if (!validator.isUUIDValid(walletNumber))
+            throw new Error("Wallet number is not valid!");
+    };
 
     const clean = () => {
         setWalletNumber(null);
@@ -30,21 +40,8 @@ const Balance = () => {
         <Container fluid>
             <h1>Balance</h1>
             <Form>
-                <Form.Group>
-                    <Form.Label>Wallet</Form.Label>
-                    <InputGroup>
-                        <InputGroup.Text><Wallet2/></InputGroup.Text>
-                        <Form.Control type="input" value={walletNumber || ""} onChange={onChange} placeholder="Informe the wallet number" />
-                    </InputGroup>
-                </Form.Group>
-
-                <div className="d-grid gap-2 mt-2">
-                    <Button variant="primary" size="lg" className="text-white" onClick={getBalance}>Consult</Button>
-                    <Button variant="secondary" size="lg" onClick={clean}>Clean</Button>
-                    <Link to="/wallet" className="col-12">
-                        <Button variant="secondary" size="lg" className="w-100">Back</Button>
-                    </Link>
-                </div>
+                <WalletInput value={walletNumber} onChange={onChange} />
+                <ButtonGroup labelAction="Consult" onClickAction={getBalance} onClickClean={clean} toLink="/wallet" />
 
                 {balance &&
                     <Form>

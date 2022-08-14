@@ -6,8 +6,11 @@ import AppName from '../../components/AppName';
 const Wallet = () => {
     return (
         <Container fluid>
-            <h1><AppName/></h1>
+            <h1><AppName /></h1>
             <div className="d-grid gap-2 mt-2">
+                <Link to="/wallet/list" className="col-12">
+                    <Button variant="primary" size="lg" className="text-white w-100">List</Button>
+                </Link>
                 <Link to="/wallet/create" className="col-12">
                     <Button variant="primary" size="lg" className="text-white w-100">Create</Button>
                 </Link>
