@@ -18,7 +18,7 @@ FROM python:alpine
 
 WORKDIR /front
 
-COPY --from=build /front/dist/ ./
+COPY --from=build /front/build/ ./
 
 EXPOSE 8801
 
