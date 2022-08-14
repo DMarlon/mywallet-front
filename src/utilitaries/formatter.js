@@ -20,7 +20,7 @@ const formatter = {
 
         const value = parseInt(this.currencyRemoveDecimalSeparators(currency))
 
-        if (!Number.isNaN(value))
+        if (Number.isNaN(value))
             throw Error(`${value} is not a valid number to be formatted!`)
 
         return formatter.format((value / 100).toFixed(2))
