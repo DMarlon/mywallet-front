@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Home from "../views/Home";
 import Client from "../views/Client";
@@ -14,24 +14,19 @@ import Statement from "../views/wallet/Statement";
 
 const MyRoutes = () => {
     return (
-        <main className="main">
-            <div>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="client" element={<Client />} />
-                        <Route path="wallet" element={<Wallet />} />
-                        <Route path="wallet/list" element={<List />} />
-                        <Route path="wallet/create" element={<Create />} />
-                        <Route path="wallet/deposit" element={<Deposit />} />
-                        <Route path="wallet/withdraw" element={<Withdraw />} />
-                        <Route path="wallet/transfer" element={<Transfer />} />
-                        <Route path="wallet/balance" element={<Balance />} />
-                        <Route path="wallet/statement" element={<Statement />} />
-                    </Routes>
-                </BrowserRouter>
-            </div>
-        </main>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="client" element={<Client />} />
+            <Route path="wallet" element={<Wallet />} />
+            <Route path="wallet/list" element={<List />} />
+            <Route path="wallet/create" element={<Create />} />
+            <Route path="wallet/deposit" element={<Deposit />} />
+            <Route path="wallet/withdraw" element={<Withdraw />} />
+            <Route path="wallet/transfer" element={<Transfer />} />
+            <Route path="wallet/balance" element={<Balance />} />
+            <Route path="wallet/statement" element={<Statement />} />
+            <Route path="*" element={<Home />} />
+        </Routes>
     )
 }
 

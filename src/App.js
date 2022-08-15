@@ -1,28 +1,33 @@
 import React from 'react';
-import MyRoutes from './routes/routes';
+import { BrowserRouter, Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
+import MyRoutes from './routes/routes';
 
 import "./App.css"
 import "./Theme.scss"
 
 function App() {
     return (
-        <>
+        <BrowserRouter>
             <nav>
                 <Nav className="bg-primary">
                     <Nav.Item>
-                        <Nav.Link href="/" className="text-white"><strong>Home</strong></Nav.Link>
+                        <Link to="/" className="nav-link text-white"><strong>Home</strong></Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/client" className="text-white"><strong>Client</strong></Nav.Link>
+                        <Link to="/client" className="nav-link text-white"><strong>Client</strong></Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/wallet" className="text-white"><strong>Wallet</strong></Nav.Link>
+                        <Link to="/wallet" className="nav-link text-white"><strong>Wallet</strong></Link>
                     </Nav.Item>
                 </Nav>
             </nav>
-            <MyRoutes />
-        </>
+            <main className="main">
+                <div>
+                    <MyRoutes />
+                </div>
+            </main>
+        </BrowserRouter>
     );
 }
 
