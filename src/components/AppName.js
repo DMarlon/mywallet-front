@@ -11,7 +11,7 @@ const AppName = () => {
     }
 
 	return (
-		<strong><span className="text-primary">{first()}</span> <span>{last()}</span></strong>
+		<strong><span className="text-primary">{first()}</span> <span className="text-black">{last()}</span></strong>
 	);
 }
 
