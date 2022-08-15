@@ -46,7 +46,7 @@ const Statement = ({ statement }) => {
                     </Table>
                 }
             </Card.Body>
-            <Card.Footer className="bg-primary text-white" style={{textAlign: "right"}}><h3>Balance {formatter.currencyUSD(statement?.balance)}</h3></Card.Footer>
+            <Card.Footer className="bg-primary text-white" style={{ textAlign: "right" }}><h3>Balance {formatter.currencyUSD(statement?.balance)}</h3></Card.Footer>
         </Card>
     );
 }

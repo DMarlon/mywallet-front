@@ -50,7 +50,7 @@ const walletservice = {
     async transfer(transfer) {
         try {
             const { data } = await requester.put(pathapi.wallet.transfer(), removeDecimalSeparatorsInValue(transfer));
-            return { from: formatCurrencyInValue(data?.from), to: formatCurrencyInValue(data?.to)};
+            return { from: formatCurrencyInValue(data?.from), to: formatCurrencyInValue(data?.to) };
         } catch (exception) {
             throw new Error(exception.message)
         }

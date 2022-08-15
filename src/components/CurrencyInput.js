@@ -16,7 +16,7 @@ const CurrencyInput = ({ value, onChange, placeholder }) => {
                     allowNegativeValue={false}
                     fixedDecimalLength={2}
                     onValueChange={onChange}
-                    placeholder= {placeholder ?? "Informe the currency value"}
+                    placeholder={placeholder ?? "Informe the currency value"}
                 />
             </InputGroup>
         </Form.Group>

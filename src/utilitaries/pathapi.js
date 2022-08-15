@@ -7,8 +7,8 @@ const pathapi = {
         list: () => "/wallet",
         create: () => "/wallet",
         deposit: () => "/wallet/deposit",
-        withdraw: () => "/wallet/withdraw",        
-        transfer: () => "/wallet/transfer",        
+        withdraw: () => "/wallet/withdraw",
+        transfer: () => "/wallet/transfer",
         balance: (number) => `/wallet/ ${number}/balance`,
         statement: (number) => `/wallet/ ${number}/transaction`
     }

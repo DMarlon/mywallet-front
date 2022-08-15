@@ -13,7 +13,7 @@ requester.interceptors.response.use(
     function(error) {
         if (error.response) {
             if (error.response.status === httpstatus.NOT_FOUND)
-                error.message =  "Resource not found!";
+                error.message = "Resource not found!";
             else if (error.response.status === httpstatus.FORBIDDEN) {
                 if (error.response.data && error.response.data.message)
                     error.message = error.response.data.message
@@ -21,9 +21,9 @@ requester.interceptors.response.use(
                     error.message = "Could not access requested resource!";
             }
             else if (error.response.data && error.response.data.message)
-                error.message =  error.response.data.message;
+                error.message = error.response.data.message;
             else
-                error.message =  "Error in requested operation!";
+                error.message = "Error in requested operation!";
         }
         else if (error.message) {
             if (error.message === "Network Error")
