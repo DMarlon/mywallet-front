@@ -44,8 +44,8 @@ const Deposit = () => {
         <Container fluid>
             <h1>Deposit</h1>
             <Form>
-                <WalletInput value={deposit?.walletNumber} onChange={onChange("walletNumber")} />
-                <CurrencyInput value={deposit?.value} onChange={onChange("value")} placeholder={"Informe the value to deposit"} />
+                <WalletInput value={deposit?.walletNumber} onChange={onChange("walletNumber")} onKeyEnter={save} />
+                <CurrencyInput value={deposit?.value} onChange={onChange("value")} onKeyEnter={save} placeholder={"Informe the value to deposit"} />
                 <ButtonGroup labelAction="Deposit" onClickAction={save} onClickClean={clean} toLink="/wallet" />
             </Form>
         </Container>

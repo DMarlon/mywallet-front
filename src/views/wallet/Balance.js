@@ -41,7 +41,7 @@ const Balance = () => {
         <Container fluid>
             <h1>Balance</h1>
             <Form>
-                <WalletInput value={walletNumber} onChange={onChange} />
+                <WalletInput value={walletNumber} onChange={onChange} onKeyEnter={getBalance} />
                 <ButtonGroup labelAction="Consult" onClickAction={getBalance} onClickClean={clean} toLink="/wallet" />
                 {balance && <Statement statement={balance} />}
             </Form>

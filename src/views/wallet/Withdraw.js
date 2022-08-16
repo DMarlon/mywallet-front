@@ -44,8 +44,8 @@ const Withdraw = () => {
         <Container fluid>
             <h1>Withdraw</h1>
             <Form>
-                <WalletInput value={withdraw?.walletNumber} onChange={onChange("walletNumber")} />
-                <CurrencyInput value={withdraw?.value} onChange={onChange("value")} placeholder={"Informe the value to withdraw"} />
+                <WalletInput value={withdraw?.walletNumber} onChange={onChange("walletNumber")} onKeyEnter={save} />
+                <CurrencyInput value={withdraw?.value} onChange={onChange("value")} onKeyEnter={save} placeholder={"Informe the value to withdraw"} />
                 <ButtonGroup labelAction="Withdraw" onClickAction={save} onClickClean={clean} toLink="/wallet" />
             </Form>
         </Container>

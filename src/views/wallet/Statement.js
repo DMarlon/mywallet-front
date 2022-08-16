@@ -14,7 +14,6 @@ const Statement = () => {
     const [walletNumber, setWalletNumber] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
-
     const onChange = event => setWalletNumber(formatter.valueFromInput(event))
 
     const getStatement = async () => {
@@ -46,7 +45,7 @@ const Statement = () => {
         <Container fluid>
             <h1>Statement</h1>
             <Form>
-                <WalletInput value={walletNumber} onChange={onChange} />
+                <WalletInput value={walletNumber} onChange={onChange} onKeyEnter={getStatement} />
                 <ButtonGroup labelAction="Consult" onClickAction={getStatement} onClickClean={clean} toLink="/wallet" />
 
                 <Modal fullscreen={true} show={showModal} onHide={() => setShowModal(false)}>

@@ -48,7 +48,7 @@ const Client = () => {
                     <Form.Label>Name</Form.Label>
                     <InputGroup>
                         <InputGroup.Text><PersonSquare /></InputGroup.Text>
-                        <Form.Control type="input" value={person.name} onChange={onChange("name")} placeholder="Client first name" />
+                        <Form.Control type="input" value={person.name} onChange={onChange("name")} onKeyDown={event => validator.isKeyEnter(event) && event.preventDefault()} placeholder="Client first name" />
                     </InputGroup>
                 </Form.Group>
 
@@ -56,7 +56,7 @@ const Client = () => {
                     <Form.Label>Surname</Form.Label>
                     <InputGroup>
                         <InputGroup.Text><PersonSquare /></InputGroup.Text>
-                        <Form.Control type="input" value={person.surname} onChange={onChange("surname")} placeholder="Client surname" />
+                        <Form.Control type="input" value={person.surname} onChange={onChange("surname")} onKeyDown={event => validator.isKeyEnter(event) && event.preventDefault()} placeholder="Client surname" />
                     </InputGroup>
                 </Form.Group>
 

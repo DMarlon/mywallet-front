@@ -48,9 +48,9 @@ const Transfer = () => {
         <Container fluid>
             <h1>Transfer</h1>
             <Form>
-                <WalletInput label="From Wallet" value={transfer?.fromWalletNumber} onChange={onChange("fromWalletNumber")} placeholder="Informe from wallet number"/>
-                <WalletInput label="To Wallet" value={transfer?.toWalletNumber} onChange={onChange("toWalletNumber")} placeholder="Informe to wallet number"/>
-                <CurrencyInput value={transfer?.value || ""} onChange={onChange("value")} placeholder={"Informe the value to transfer"} />
+                <WalletInput label="From Wallet" value={transfer?.fromWalletNumber} onChange={onChange("fromWalletNumber")} onKeyEnter={save} placeholder="Informe from wallet number"/>
+                <WalletInput label="To Wallet" className="mt-2" value={transfer?.toWalletNumber} onChange={onChange("toWalletNumber")} onKeyEnter={save} placeholder="Informe to wallet number"/>
+                <CurrencyInput value={transfer?.value || ""} onChange={onChange("value")} onKeyEnter={save} placeholder={"Informe the value to transfer"} />
                 <ButtonGroup labelAction="Transfer" onClickAction={save} onClickClean={clean} toLink="/wallet" />
             </Form>
         </Container>
