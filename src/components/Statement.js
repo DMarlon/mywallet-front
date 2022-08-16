@@ -23,8 +23,8 @@ const Statement = ({ statement }) => {
 
                             </tr>
                         </thead>
-                        {statement?.transactions.map(transaction => (
-                            <tbody>
+                        {statement?.transactions.map((transaction, index) => (
+                            <tbody key={index}>
                                 <tr>
                                     <td>{transaction.number}</td>
                                     <td>{formatter.dateTimeToEnglishFormat(transaction.dateTime)}</td>
